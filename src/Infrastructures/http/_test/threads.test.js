@@ -19,6 +19,10 @@ describe('/threads endpoint', () => {
         title: 'dicoding',
         body: 'Dicoding Indonesia',
       };
+      // TODO FIX ERROR 401 on test case
+      const authorization = {
+        'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRpY29kaW5nIiwiaWQiOiJ1c2VyLXJxencxdkE5RXBFT1kwdTUxZ19ZeCIsImlhdCI6MTY3MTQ3ODY2N30.drb9DM7aswKZiYgpZCp0APWVMxZgXtVEblGhifX6P6Yz'
+      }
       // eslint-disable-next-line no-undef
       const server = await createServer(container);
 
@@ -27,6 +31,7 @@ describe('/threads endpoint', () => {
         method: 'POST',
         url: '/threads',
         payload: requestPayload,
+        headers: authorization
       });
 
       // Assert

@@ -52,11 +52,11 @@ const createServer = async (container) => {
   ]);
 
   server.ext('onPreResponse', (request, h) => {
-    // console.log(request)
     // mendapatkan konteks response dari request
     const { response } = request;
 
     if (response instanceof Error) {
+      // console.log(response  )
       // bila response tersebut error, tangani sesuai kebutuhan
       const translatedError = DomainErrorTranslator.translate(response);
 

@@ -10,7 +10,8 @@ class CreatedThread {
       this.owner = owner;
     }
   
-    _verifyPayload({ id, title, owner }) {
+    _verifyPayload(payload) {
+      const { id, title, owner } = payload
       if (!id || !title || !owner) {
         throw new Error('CREATED_THREAD.NOT_CONTAIN_NEEDED_PROPERTY');
       }
