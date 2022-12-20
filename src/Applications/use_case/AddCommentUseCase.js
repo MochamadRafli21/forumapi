@@ -5,7 +5,6 @@ class AddCommentUseCase {
     commentRepository,
     threadRepository
    }) {
-    console.log(threadRepository)
     
     this._commentRepository = commentRepository;
     this._threadRepository = threadRepository;
