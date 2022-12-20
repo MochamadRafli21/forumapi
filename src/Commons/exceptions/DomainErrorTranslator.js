@@ -1,4 +1,5 @@
 const InvariantError = require('./InvariantError');
+const NotFoundError = require('./NotFoundError')
 
 const DomainErrorTranslator = {
   translate(error) {
@@ -18,7 +19,10 @@ DomainErrorTranslator._directories = {
   'DELETE_AUTHENTICATION_USE_CASE.NOT_CONTAIN_REFRESH_TOKEN': new InvariantError('harus mengirimkan token refresh'),
   'DELETE_AUTHENTICATION_USE_CASE.PAYLOAD_NOT_MEET_DATA_TYPE_SPECIFICATION': new InvariantError('refresh token harus string'),
   'CREATE_THREAD.NOT_CONTAIN_NEEDED_PROPERTY':new InvariantError('Pesan apapun selama tidak kosong'),
-  'CREATE_THREAD.NOT_MEET_DATA_TYPE_SPECIFICATION': new InvariantError('tidak dapat membuat thread baru karena tipe data tidak sesuai')
+  'CREATE_THREAD.NOT_MEET_DATA_TYPE_SPECIFICATION': new InvariantError('tidak dapat membuat thread baru karena tipe data tidak sesuai'),
+  'CREATE_COMMENT.NOT_CONTAIN_NEEDED_PROPERTY':new InvariantError('Pesan apapun selama tidak kosong'),
+  'CREATE_COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION':new InvariantError('Tidak dapat membuat comment karena type data tidak sesuai'),
+  'RETRIEVED_THREAD.NOT_FOUND': new NotFoundError('Thread Tidak ditemukan')
 };
 
 module.exports = DomainErrorTranslator;

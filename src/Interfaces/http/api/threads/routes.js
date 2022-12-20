@@ -7,6 +7,22 @@ const routes = (handler) => ([
         auth: "jwt"
       }
     },
+    {
+      method: 'POST',
+      path: '/threads/{thread_id}/comments',
+      handler: handler.postCommentHandler,
+      options: {
+        auth: "jwt"
+      }
+    },
+    // {
+    //   method: 'DELETE',
+    //   path: '/threads/{thread_id}/comment',
+    //   handler: handler.deleteCommentHandler,
+    //   options: {
+    //     auth: "jwt"
+    //   }
+    // },
   ]);
   
   module.exports = routes;
