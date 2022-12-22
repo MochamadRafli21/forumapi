@@ -58,8 +58,6 @@ describe('/threads endpoint', () => {
         title: 'dicoding',
         body: 'Dicoding Indonesia',
       };
-      // TODO FIX ERROR 401 on test case
-
       // eslint-disable-next-line no-undef
       const server = await createServer(container);
 

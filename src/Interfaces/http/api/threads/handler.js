@@ -1,6 +1,6 @@
 const AddThreadUseCase = require('../../../../Applications/use_case/AddThreadUseCase');
 const AddCommentUseCase = require('../../../../Applications/use_case/AddCommentUseCase');
-// const DeleteCommentUseCase = require('../../../../Applications/use_case/DeleteCommentUseCase');
+const DeleteCommentUseCase = require('../../../../Applications/use_case/DeleteCommentUseCase');
 
 class ThreadsHandler {
   constructor(container) {
@@ -8,7 +8,7 @@ class ThreadsHandler {
 
     this.postThreadHandler = this.postThreadHandler.bind(this);
     this.postCommentHandler = this.postCommentHandler.bind(this);
-    // this.deleteCommentHandler = this.deleteCommentHandler.bind(this);
+    this.deleteCommentHandler = this.deleteCommentHandler.bind(this);
   }
 
   async postThreadHandler(request, h) {
@@ -47,27 +47,28 @@ class ThreadsHandler {
     return response;
   }
 
-  // async deleteCommentHandler(request, h) {
-  //   const { thread_id } = request.params;
-  //   const {_, id:owner } = request.auth.credentials
+  async deleteCommentHandler(request, h) {
+    const { thread_id, comment_id } = request.params;
+    const {_, id:owner } = request.auth.credentials
 
-  //   const payload = {
-  //     'thread':thread_id,
-  //     'owner':owner
-  //   }
+    const payload = {
+      'thread':thread_id,
+      'comment':comment_id,
+      'owner':owner
+    }
 
-  //   const deleteCommentUseCase = this._container.getInstance(DeleteCommentUseCase.name);
-  //   const deletedComment = await deleteCommentUseCase.execute(payload);
+    const deleteCommentUseCase = this._container.getInstance(DeleteCommentUseCase.name);
+    const deletedComment = await deleteCommentUseCase.execute(payload);
 
-  //   const response = h.response({
-  //     status: 'success',
-  //     data: {
-  //       addedComment,
-  //     },
-  //   });
-  //   response.code(201);
-  //   return response;
-  // }
+    const response = h.response({
+      status: 'success',
+      data: {
+        deletedComment,
+      },
+    });
+    response.code(200);
+    return response;
+  }
 }
 
 module.exports = ThreadsHandler;

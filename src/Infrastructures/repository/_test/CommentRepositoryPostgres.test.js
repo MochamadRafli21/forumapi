@@ -2,6 +2,7 @@ const CommentsTableTestHelper = require('../../../../tests/CommentsTableTestHelp
 const ThreadsTableTestHelper = require('../../../../tests/ThreadTableTestHelper');
 const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
 const CreateComment = require('../../../Domains/comments/entities/CreateComment');
+const DeleteComment = require('../../../Domains/comments/entities/DeleteComment');
 const CreatedComment = require('../../../Domains/comments/entities/CreatedComment');
 const pool = require('../../database/postgres/pool');
 const CommentRepositoryPostgres = require('../CommentRepositoryPostgres');
@@ -68,6 +69,34 @@ describe('CommentRepositoryPostgres', () => {
         owner: 'user-123',
         content: 'new comment'
       }));
+    });
+  });
+
+  describe('deleteComment function', () => {
+    it('should remove comment', async () => {
+
+      const createComment = new CreateComment({
+        owner: 'user-123',
+        content: 'new comment',
+        thread: 'thread-123',
+      });
+      const fakeIdGenerator = () => '123'; // stub!
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
+ 
+      // Action
+      await commentRepositoryPostgres.addComment(createComment);
+ 
+      // Assert
+      const comments = await CommentsTableTestHelper.findCommentdById('comment-123')
+      const deleteComment = new DeleteComment({
+        comment:comments[0].id,
+        owner:comments[0].owner,
+        thread:comments[0].thread
+      })
+     await commentRepositoryPostgres.deleteComment(deleteComment)
+      // Assert
+      const comments_2 = await CommentsTableTestHelper.findCommentdById('comment-123')
+      expect(comments_2).toHaveLength(0);
     });
   });
 });

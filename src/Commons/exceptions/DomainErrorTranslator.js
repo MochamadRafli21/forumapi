@@ -1,5 +1,6 @@
 const InvariantError = require('./InvariantError');
-const NotFoundError = require('./NotFoundError')
+const NotFoundError = require('./NotFoundError');
+const AuthorizationError = require('./AuthorizationError');
 
 const DomainErrorTranslator = {
   translate(error) {
@@ -22,7 +23,13 @@ DomainErrorTranslator._directories = {
   'CREATE_THREAD.NOT_MEET_DATA_TYPE_SPECIFICATION': new InvariantError('tidak dapat membuat thread baru karena tipe data tidak sesuai'),
   'CREATE_COMMENT.NOT_CONTAIN_NEEDED_PROPERTY':new InvariantError('Pesan apapun selama tidak kosong'),
   'CREATE_COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION':new InvariantError('Tidak dapat membuat comment karena type data tidak sesuai'),
-  'RETRIEVED_THREAD.NOT_FOUND': new NotFoundError('Thread Tidak ditemukan')
+  'RETRIEVED_THREAD.NOT_FOUND': new NotFoundError('Thread Tidak ditemukan'),
+  'VERIFY_COMMENT.NOT_CONTAIN_NEEDED_PROPERTY': new InvariantError('Tidak dapat menemukan comment karena data tidak lengkap'),
+  'VERIFY_COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION': new InvariantError('Tidak dapat menemukan comment karena tipe data tidak sesuai'),
+  'VERIFIED_COMMENT.NOT_CONTAIN_NEEDED_PROPERTY': new NotFoundError('Tidak dapat menemukan comment'),
+  'VERIFIED_COMMENT.DATA_TYPE_NOT_MATCH': new InvariantError('Tidak dapat menemukan comment karena tipe data tidak sesuai'),
+  'VERIFIED_COMMENT.OWNER_NOT_MATCH': new AuthorizationError('Tidak dapat menghapus comment, anda tidak memiliki hak akses'),
+  'DELETE_COMMENT.NOT_CONTAIN_NEEDED_PROPERTY': new InvariantError('Tidak dapat Menghapus comment karena data tidak lengkap')
 };
 
 module.exports = DomainErrorTranslator;
