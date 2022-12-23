@@ -13,11 +13,21 @@ class RetrivedThread {
       this.comments = [];
       if(comment_id){
         for(let i = 0; i < payload.length; i++){
-          let comment = {
-            'id': payload[i].comment_id,
-            'content': payload[i].content,
-            'username': payload[i].owner,
-            'date':payload[i].date
+          let comment = {}
+          if(!payload[i].is_deleted){
+            comment = {
+              'id': payload[i].comment_id,
+              'content': payload[i].content,
+              'username': payload[i].owner,
+              'date':payload[i].date
+            }
+          }else{
+            comment = {
+              'id': payload[i].comment_id,
+              'content': '**komentar telah dihapus**',
+              'username': payload[i].owner,
+              'date':payload[i].date
+            }
           }
           this.comments.push(comment)
         };

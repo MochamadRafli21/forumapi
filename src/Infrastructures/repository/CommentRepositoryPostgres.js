@@ -27,7 +27,7 @@ class CommentRepositoryPostgres extends CommentRepository {
     const { thread, comment, owner } = deleteComment;
 
     const query = {
-      text: 'DELETE FROM comment WHERE id = $1 AND thread = $2 AND owner = $3',
+      text: 'UPDATE comment SET is_deleted = true WHERE id = $1 AND thread = $2 AND owner = $3',
       values: [comment, thread, owner],
     };
     await this._pool.query(query);
