@@ -23,15 +23,14 @@ class ThreadRepositoryPostgres extends ThreadRepository {
     return new CreatedThread({ ...result.rows[0] });
   }
 
-  async getThreadById(thread_id) {
+  async getThread(thread_id) {
     const query = {
-      text: 'SELECT * FROM thread WHERE id = $1',
+      text: 'SELECT thread.id as thread_id, thread.title as thread_title , thread.body as thread_body, i.username as owner, thread.date as thread_date, comment.id as comment_id, comment.content, s.username as thread_username, comment.date FROM thread LEFT JOIN comment ON thread.id = comment.thread LEFT JOIN users as s ON thread.owner = s.id LEFT JOIN users as i ON comment.owner = i.id WHERE thread.id = $1',
       values: [thread_id],
     };
 
     const result = await this._pool.query(query);
-
-    return new RetrivedThread({ ...result.rows[0] });
+    return new RetrivedThread(result.rows);
   }
 }
 

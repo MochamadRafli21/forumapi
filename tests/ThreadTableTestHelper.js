@@ -6,11 +6,12 @@ const ThreadTableTestHelper = {
     id = 'thread-123', title = 'dicoding', body = 'secret', owner = 'user-123',
   }) {
     const query = {
-      text: 'INSERT INTO thread VALUES($1, $2, $3, $4)',
+      text: 'INSERT INTO thread VALUES($1, $2, $3, $4) RETURNING id, title, owner,date',
       values: [id, owner, title, body],
     };
 
-    await pool.query(query);
+    const result = await pool.query(query);
+    return result.rows[0]
   },
 
   async findThreadById(id) {

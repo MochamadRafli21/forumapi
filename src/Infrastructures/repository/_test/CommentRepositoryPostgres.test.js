@@ -82,17 +82,19 @@ describe('CommentRepositoryPostgres', () => {
       });
       const fakeIdGenerator = () => '123'; // stub!
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
- 
-      // Action
-      await commentRepositoryPostgres.addComment(createComment);
- 
-      // Assert
+
+      await CommentsTableTestHelper.addComment({
+        owner: 'user-123',
+        content: 'new comment',
+        thread: 'thread-123',
+      });
       const comments = await CommentsTableTestHelper.findCommentdById('comment-123')
       const deleteComment = new DeleteComment({
         comment:comments[0].id,
         owner:comments[0].owner,
         thread:comments[0].thread
       })
+      // Action
      await commentRepositoryPostgres.deleteComment(deleteComment)
       // Assert
       const comments_2 = await CommentsTableTestHelper.findCommentdById('comment-123')

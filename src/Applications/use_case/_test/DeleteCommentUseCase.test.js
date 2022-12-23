@@ -27,7 +27,7 @@ describe('const DeleteCommentUseCase', () => {
       .mockImplementation(() => Promise.resolve({'status':'success'}));
     mockCommentRepository.deleteComment = jest.fn()
       .mockImplementation(() => Promise.resolve(expectedStatusComment));
-    mockThreadRepository.getThreadById = jest.fn()
+    mockThreadRepository.getThread = jest.fn()
       .mockImplementation(() => Promise.resolve());
  
     const getCommentUseCase = new DeleteCommentUseCase({
