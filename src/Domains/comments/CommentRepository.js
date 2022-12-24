@@ -5,11 +5,15 @@ class CommentRepository {
 
     async deleteComment(deleteComment) {
         throw new Error('COMMENT_REPOSITORY.METHOD_NOT_IMPLEMENTED');
-      }
+    }
     
     async verifyCommentOwner(verifyComment) {
         throw new Error('COMMENT_REPOSITORY.METHOD_NOT_IMPLEMENTED');
-      }
+    }
+
+    async getComment(idComment) {
+      throw new Error('COMMENT_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+    }
   }
 
   module.exports = CommentRepository;

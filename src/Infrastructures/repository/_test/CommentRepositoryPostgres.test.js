@@ -74,12 +74,6 @@ describe('CommentRepositoryPostgres', () => {
 
   describe('deleteComment function', () => {
     it('should remove comment', async () => {
-
-      const createComment = new CreateComment({
-        owner: 'user-123',
-        content: 'new comment',
-        thread: 'thread-123',
-      });
       const fakeIdGenerator = () => '123'; // stub!
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
 
@@ -99,6 +93,25 @@ describe('CommentRepositoryPostgres', () => {
       // Assert
       const comments_2 = await CommentsTableTestHelper.findCommentdById('comment-123')
       expect(comments_2[0].is_deleted).toEqual(true);
+    });
+  });
+
+
+  describe('retriveComment function', () => {
+    it('should return id of comment', async () => {
+
+      const fakeIdGenerator = () => '123'; // stub!
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
+
+      const created_comment = await CommentsTableTestHelper.addComment({
+        owner: 'user-123',
+        content: 'new comment',
+        thread: 'thread-123',
+      });
+      // Action
+     const comments = await commentRepositoryPostgres.getComment(created_comment.id)
+      // Assert
+      expect(comments.id).toEqual(created_comment.id);
     });
   });
 });

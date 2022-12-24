@@ -28,8 +28,19 @@ DomainErrorTranslator._directories = {
   'VERIFY_COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION': new InvariantError('Tidak dapat menemukan comment karena tipe data tidak sesuai'),
   'VERIFIED_COMMENT.NOT_CONTAIN_NEEDED_PROPERTY': new NotFoundError('Tidak dapat menemukan comment'),
   'VERIFIED_COMMENT.DATA_TYPE_NOT_MATCH': new InvariantError('Tidak dapat menemukan comment karena tipe data tidak sesuai'),
-  'VERIFIED_COMMENT.OWNER_NOT_MATCH': new AuthorizationError('Tidak dapat menghapus comment, anda tidak memiliki hak akses'),
-  'DELETE_COMMENT.NOT_CONTAIN_NEEDED_PROPERTY': new InvariantError('Tidak dapat Menghapus comment karena data tidak lengkap')
+  'VERIFIED_COMMENT.OWNER_NOT_MATCH': new AuthorizationError('Tidak dapat menemukan comment, anda tidak memiliki hak akses'),
+  'DELETE_COMMENT.NOT_CONTAIN_NEEDED_PROPERTY': new InvariantError('Tidak dapat Menghapus comment karena data tidak lengkap'),
+  'CREATED_REPLY.NOT_CONTAIN_NEEDED_PROPERTY': new InvariantError('Tidak dapat membuat reply karena data tidak lengkap'),
+  'CREATED_REPLY.NOT_MEET_DATA_TYPE_SPECIFICATION': new InvariantError('Tidak dapat membuat reply karena tipe data tidak sesuai'),
+  'CREATE_REPLY.NOT_CONTAIN_NEEDED_PROPERTY': new InvariantError('Tidak dapat membuat reply karena tipe data tidak lengkap'),
+  'CREATE_REPLY.NOT_MEET_DATA_TYPE_SPECIFICATION': new InvariantError('Tidak dapat membuat reply karena tipe data tidak sesuai'),
+  'DELETE_REPLY.NOT_CONTAIN_NEEDED_PROPERTY': new InvariantError('Tidak dapat menghapus reply karena data tidak lengkap'),
+  'VERIFIED_REPLY.NOT_CONTAIN_NEEDED_PROPERTY': new InvariantError('Tidak dapat menemukan reply karena data tidak lengkap'),
+  'VERIFIED_REPLY.NOT_MEET_DATA_TYPE_SPECIFICATION': new InvariantError('Tidak dapat menemukan reply karena tipe data tidak sesuai'),
+  'VERIFIED_REPLY.OWNER_NOT_MATCH': new AuthorizationError('Tidak dapat menemukan reply, anda tidak memiliki hak akses'),
+  'VERIFY_REPLY.NOT_CONTAIN_NEEDED_PROPERTY': new InvariantError('Tidak dapat menemukan reply karena data tidak lengkap'),
+  'VERIFY_REPLY.NOT_MEET_DATA_TYPE_SPECIFICATION': new InvariantError('Tidak dapat menemukan reply karena tipe data tidak sesuai'),
+  'RETRIEVED_COMMENT.NOT_FOUND': new NotFoundError('Tidak dapat menemukan reply'),
 };
 
 module.exports = DomainErrorTranslator;

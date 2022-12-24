@@ -1,5 +1,6 @@
 const CreatedComment = require('../../Domains/comments/entities/CreatedComment');
-const VerifiedComment = require('../../Domains/comments/entities/VerifiedComment')
+const VerifiedComment = require('../../Domains/comments/entities/VerifiedComment');
+const RetrivedComment = require('../../Domains/comments/entities/RetrivedComment');
 const CommentRepository = require('../../Domains/comments/CommentRepository');
 
 class CommentRepositoryPostgres extends CommentRepository {
@@ -44,6 +45,15 @@ class CommentRepositoryPostgres extends CommentRepository {
     let data = { ...result.rows[0] }
     data.payload_owner = owner
     return new VerifiedComment(data);
+  }
+
+  async getComment(idcomment){
+    const query = {
+      text: 'SELECT id, is_deleted FROM comment WHERE id = $1',
+      values: [idcomment],
+    };
+    const result =await this._pool.query(query);
+    return new RetrivedComment(result.rows);
   }
 }
 
