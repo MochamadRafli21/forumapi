@@ -1,6 +1,6 @@
 const VerifyComment = require('../VerifyComment')
 
-describe('a DeleteComment entities', () => {
+describe('a VerifyComment entities', () => {
 
     it('should throw error when payload did not fill required tags', () => {
         //Arrange
@@ -22,7 +22,7 @@ describe('a DeleteComment entities', () => {
 
     });
 
-    it('should delete comment object properly', () => {
+    it('should verify comment object properly', () => {
         const payload = {
             "comment": "comment-123",
             "owner": "user-123"

@@ -1,6 +1,9 @@
 class VerifiedReply {
     constructor({ id, owner, payload_owner }) {
-      if (!id || !owner || !payload_owner) {
+      if (!id || !owner){
+        throw new Error('VERIFIED_REPLY.NOT_FOUND_REPLY')
+      }
+      if (!payload_owner) {
         throw new Error('VERIFIED_REPLY.NOT_CONTAIN_NEEDED_PROPERTY');
       }
 

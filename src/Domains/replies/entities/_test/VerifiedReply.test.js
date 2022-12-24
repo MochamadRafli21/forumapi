@@ -1,7 +1,7 @@
 const VerifiedReply = require('../VerifiedReply');
 
 describe('a VerifiedReply entities', () => {
-    it('should throw error when data did not match required field', () => {
+    it('should throw error when no reply found', () => {
         // Arrange
         const payload = {
           id: '',
@@ -10,8 +10,20 @@ describe('a VerifiedReply entities', () => {
         };
     
         // Action and Assert
-        expect(() => new VerifiedReply(payload)).toThrowError('VERIFIED_REPLY.NOT_CONTAIN_NEEDED_PROPERTY');
+        expect(() => new VerifiedReply(payload)).toThrowError('VERIFIED_REPLY.NOT_FOUND_REPLY');
     });
+
+  it('should throw error when data missing', () => {
+      // Arrange
+      const payload = {
+        id: 'reply-123',
+        owner:'user-123',
+        payload_owner:''
+      };
+  
+      // Action and Assert
+      expect(() => new VerifiedReply(payload)).toThrowError('VERIFIED_REPLY.NOT_CONTAIN_NEEDED_PROPERTY');
+  });
 
   it('should throw error when payload did not meet data type specification', () => {
     // Arrange

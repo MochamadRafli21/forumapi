@@ -41,6 +41,7 @@ DomainErrorTranslator._directories = {
   'VERIFY_REPLY.NOT_CONTAIN_NEEDED_PROPERTY': new InvariantError('Tidak dapat menemukan reply karena data tidak lengkap'),
   'VERIFY_REPLY.NOT_MEET_DATA_TYPE_SPECIFICATION': new InvariantError('Tidak dapat menemukan reply karena tipe data tidak sesuai'),
   'RETRIEVED_COMMENT.NOT_FOUND': new NotFoundError('Tidak dapat menemukan reply'),
+  'VERIFIED_REPLY.NOT_FOUND_REPLY': new NotFoundError('Tidak dapat menemukan reply')
 };
 
 module.exports = DomainErrorTranslator;
