@@ -11,22 +11,57 @@ class RetrivedThread {
       this.username = thread_username;
       this.date = thread_date
       this.comments = [];
+      let idcomments = payload.map(({ comment_id }) => comment_id)
+      const comments_array = payload.filter(
+        (value, index)=>{
+          return idcomments.indexOf(value.comment_id) === index;
+        }
+      )
+  
       if(comment_id){
-        for(let i = 0; i < payload.length; i++){
+        for(let i = 0; i < comments_array.length; i++){
           let comment = {}
-          if(!payload[i].is_deleted){
+          if(!comments_array[i].is_deleted){
             comment = {
-              'id': payload[i].comment_id,
-              'content': payload[i].content,
-              'username': payload[i].owner,
-              'date':payload[i].date
+              'id': comments_array[i].comment_id,
+              'content': comments_array[i].content,
+              'username': comments_array[i].owner,
+              'date':comments_array[i].date,
+              'replies':[]
             }
           }else{
             comment = {
-              'id': payload[i].comment_id,
+              'id': comments_array[i].comment_id,
               'content': '**komentar telah dihapus**',
-              'username': payload[i].owner,
-              'date':payload[i].date
+              'username': comments_array[i].owner,
+              'date':comments_array[i].date,
+              'replies':[]
+            }
+          }
+          if(comments_array[i].reply_id){
+            const replies = payload.filter(
+              (x) => {
+                return x.comment_id === comment.id
+              }
+            )
+            for(let j = 0; j < replies.length; j++){
+              let reply = {}
+              if(!replies[j].reply_is_deleted){
+                reply = {
+                  'id': replies[j].reply_id,
+                  'content': replies[j].reply_content,
+                  'username': replies[j].reply_username,
+                  'date':replies[j].reply_date
+                }
+              }else{
+                reply = {
+                  'id': replies[j].reply_id,
+                  'content': '**balasan telah dihapus**',
+                  'username': replies[j].reply_username,
+                  'date':replies[j].reply_date
+                }
+              }
+              comment.replies.push(reply)
             }
           }
           this.comments.push(comment)
