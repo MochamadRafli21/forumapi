@@ -1,4 +1,4 @@
-class RetrivedThread {
+class RetrivedComment {
     constructor(payload) {
       this._verifyPayload(payload);
       const { id, is_deleted } = payload[0];
@@ -17,5 +17,5 @@ class RetrivedThread {
     }
   }
   
-  module.exports = RetrivedThread;
+  module.exports = RetrivedComment;
   

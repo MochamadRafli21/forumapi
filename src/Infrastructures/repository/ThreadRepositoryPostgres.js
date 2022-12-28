@@ -1,5 +1,6 @@
 const CreatedThread = require('../../Domains/threads/entities/CreatedThread');
-const RetrivedThread = require('../../Domains/threads/entities/RetrivedThread')
+const RetrivedThread = require('../../Domains/threads/entities/RetrivedThread');
+const VerifiedThread = require('../../Domains/threads/entities/VerifiedThread');
 const ThreadRepository = require('../../Domains/threads/ThreadRepository');
 
 class ThreadRepositoryPostgres extends ThreadRepository {
@@ -31,6 +32,16 @@ class ThreadRepositoryPostgres extends ThreadRepository {
 
     const result = await this._pool.query(query);
     return new RetrivedThread(result.rows);
+  }
+
+  async verifyThreadAvaibility(thread_id) {
+    const query = {
+      text: 'SELECT id FROM thread WHERE id = $1;',
+      values: [thread_id],
+    };
+
+    const result = await this._pool.query(query);
+    return new VerifiedThread(result.rows);
   }
 }
 

@@ -15,7 +15,7 @@ class DeleteReplytUseCase {
 
   async execute(useCasePayload) {
     const deleteReply = new DeleteReply(useCasePayload);
-    await this._threadRepository.getThread(deleteReply.thread);
+    await this._threadRepository.verifyThreadAvaibility(deleteReply.thread);
     await this._commentRepository.getComment(deleteReply.comment);
     const verifyReply = new VerifyReply({
         reply: useCasePayload.reply,

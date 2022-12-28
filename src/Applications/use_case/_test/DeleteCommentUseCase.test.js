@@ -1,6 +1,10 @@
 const CommentRepository = require('../../../Domains/comments/CommentRepository');
 const DeleteCommentUseCase = require('../DeleteCommentUseCase');
 const ThreadRepository = require('../../../Domains/threads/ThreadRepository');
+const DeletedComment = require('../../../Domains/comments/entities/DeletedComment');
+const VerifiedComment = require('../../../Domains/comments/entities/VerifiedComment');
+const VerifiedThread = require('../../../Domains/threads/entities/VerifiedThread');
+const VerifyComment = require('../../../Domains/comments/entities/VerifyComment');
  
 describe('const DeleteCommentUseCase', () => {
   it('should orchestrating the delete comment action correctly', async () => {
@@ -11,24 +15,38 @@ describe('const DeleteCommentUseCase', () => {
       comment: 'comment-123',
     };
 
-    const useCaseVerifPayload = {
+    const useCaseVerifPayload = new VerifyComment ({
         owner:'user-123',
         comment: 'comment-123',
-      };
+      });
 
-    const expectedStatusComment = {
-        'status': "success"
-    }
+    const useCaseVerifThreadPayload = "thread-123"
+
+    const expectedDeleteStatusComment = new DeletedComment({
+      id:"comment-123",
+      is_deleted:true,
+    })
  
     const mockCommentRepository = new CommentRepository();
     const mockThreadRepository = new ThreadRepository();
 
     mockCommentRepository.verifyCommentOwner = jest.fn()
-      .mockImplementation(() => Promise.resolve({'status':'success'}));
+      .mockImplementation(() => Promise.resolve(new VerifiedComment({
+        owner:'user-123',
+        payload_owner:'user-123',
+        id: 'comment-123',
+      })));
     mockCommentRepository.deleteComment = jest.fn()
-      .mockImplementation(() => Promise.resolve(expectedStatusComment));
-    mockThreadRepository.getThread = jest.fn()
-      .mockImplementation(() => Promise.resolve());
+      .mockImplementation(() => Promise.resolve(new DeletedComment({
+        id:"comment-123",
+        is_deleted:true,
+      })));
+    mockThreadRepository.verifyThreadAvaibility = jest.fn()
+      .mockImplementation(() => Promise.resolve(new VerifiedThread([
+        {
+          id:"thread-123",
+        }
+      ])));
  
     const getCommentUseCase = new DeleteCommentUseCase({
       commentRepository: mockCommentRepository,
@@ -38,11 +56,11 @@ describe('const DeleteCommentUseCase', () => {
  
     // check comment exist
     expect(mockCommentRepository.verifyCommentOwner)
-        .toHaveBeenCalledWith(useCaseVerifPayload);
+        .toBeCalledWith(useCaseVerifPayload);
+    expect(mockThreadRepository.verifyThreadAvaibility)
+        .toBeCalledWith(useCaseVerifThreadPayload);
     expect(mockCommentRepository.deleteComment)
-        .toHaveBeenCalledWith(useCasePayload);
-    expect(deletedComment).toStrictEqual({
-        'status':'success'
-    })
+        .toBeCalledWith(useCasePayload);
+    expect(deletedComment).toStrictEqual(expectedDeleteStatusComment)
   });
 });

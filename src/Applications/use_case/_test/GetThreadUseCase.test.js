@@ -21,7 +21,15 @@ describe('const GetThreadUseCase', () => {
 
 
     mockThreadRepository.getThread = jest.fn()
-      .mockImplementation(() => Promise.resolve(expectedRetrivedThread));
+      .mockImplementation(() => Promise.resolve(new RetrivedThread([{
+        thread_id: 'thread-123',
+        thread_title: 'new thread',
+        thread_body: 'is it really that hard bro?',
+        thread_username: 'user-123',
+        comment_id: 'comment-123',
+        content: 'new comment',
+        owner: 'user-123'
+      }])));
 
     const getThreadUseCase = new GetThreadUseCase({
       threadRepository: mockThreadRepository 

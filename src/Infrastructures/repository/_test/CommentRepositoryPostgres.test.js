@@ -89,10 +89,9 @@ describe('CommentRepositoryPostgres', () => {
         thread:comments[0].thread
       })
       // Action
-     await commentRepositoryPostgres.deleteComment(deleteComment)
+     const comment_2 = await commentRepositoryPostgres.deleteComment(deleteComment)
       // Assert
-      const comments_2 = await CommentsTableTestHelper.findCommentdById('comment-123')
-      expect(comments_2[0].is_deleted).toEqual(true);
+      expect(comment_2.is_deleted).toEqual(true);
     });
   });
 
@@ -112,6 +111,7 @@ describe('CommentRepositoryPostgres', () => {
      const comments = await commentRepositoryPostgres.getComment(created_comment.id)
       // Assert
       expect(comments.id).toEqual(created_comment.id);
+      expect(comments.is_deleted).toBeFalsy();
     });
   });
 });

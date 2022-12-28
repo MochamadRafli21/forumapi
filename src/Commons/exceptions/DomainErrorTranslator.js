@@ -41,7 +41,14 @@ DomainErrorTranslator._directories = {
   'VERIFY_REPLY.NOT_CONTAIN_NEEDED_PROPERTY': new InvariantError('Tidak dapat menemukan reply karena data tidak lengkap'),
   'VERIFY_REPLY.NOT_MEET_DATA_TYPE_SPECIFICATION': new InvariantError('Tidak dapat menemukan reply karena tipe data tidak sesuai'),
   'RETRIEVED_COMMENT.NOT_FOUND': new NotFoundError('Tidak dapat menemukan reply'),
-  'VERIFIED_REPLY.NOT_FOUND_REPLY': new NotFoundError('Tidak dapat menemukan reply')
+  'VERIFIED_REPLY.NOT_FOUND_REPLY': new NotFoundError('Tidak dapat menemukan reply'),
+  'VERIFIED_THREAD.NOT_FOUND':new NotFoundError('Thread Tidak dapat ditemukan'),
+  'DELETED_COMMENT.FAILED_TO_REMOVE_COMMENT':new InvariantError('Gagal Menghapus comment'),
+  'DELETED_COMMENT.NOT_CONTAIN_NEEDED_PROPERTY':new InvariantError('Gagal Menghapus comment karena data tidak lengkap'),
+  'DELETED_COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION':new InvariantError('Gagal Menghapus comment karena tipe data tidak sesuai'),
+  'DELETED_REPLY.FAILED_TO_REMOVE_REPLY':new InvariantError('Gagal Menghapus Reply'),
+  'DELETED_REPLY.NOT_CONTAIN_NEEDED_PROPERTY':new InvariantError('Gagal Menghapus reply karena data tidak lengkap'),
+  'DELETED_REPLY.NOT_MEET_DATA_TYPE_SPECIFICATION':new InvariantError('Gagal Menghapus reply karena tipe data tidak sesuai'),
 };
 
 module.exports = DomainErrorTranslator;

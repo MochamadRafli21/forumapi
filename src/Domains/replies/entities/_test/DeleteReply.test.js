@@ -22,10 +22,11 @@ describe('a DeleteReply entities', () => {
             "thread": "thread-123",
         }
 
-        const {reply, comment, owner} = new DeleteReply(payload)
+        const {reply, comment, owner, thread} = new DeleteReply(payload)
 
         expect(reply).toMatch(payload.reply);
         expect(comment).toMatch(payload.comment);
         expect(owner).toMatch(payload.owner);
+        expect(thread).toMatch(payload.thread);
     });
 })

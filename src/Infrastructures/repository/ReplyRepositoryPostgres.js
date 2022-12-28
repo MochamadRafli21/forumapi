@@ -1,5 +1,6 @@
 const CreatedReply = require('../../Domains/replies/entities/CreatedReply');
 const VerifiedReply = require('../../Domains/replies/entities/VerifiedReply');
+const DeletedReply = require('../../Domains/replies/entities/DeletedReply');
 const ReplyRepository = require('../../Domains/replies/ReplyRepository');
 
 class ReplyRepositoryPostgres extends ReplyRepository {
@@ -27,11 +28,12 @@ class ReplyRepositoryPostgres extends ReplyRepository {
     const { comment, reply, owner } = deleteReply;
 
     const query = {
-      text: 'UPDATE reply SET is_deleted = true WHERE id = $1 AND comment = $2 AND owner = $3',
+      text: 'UPDATE reply SET is_deleted = true WHERE id = $1 AND comment = $2 AND owner = $3 RETURNING id, is_deleted',
       values: [reply, comment, owner],
     };
-    await this._pool.query(query);
-  }
+    const result = await this._pool.query(query);
+
+    return new DeletedReply({ ...result.rows[0] });  }
 
   async verifyReplyOwner(verifyReply) {
     const { reply, owner } = verifyReply;

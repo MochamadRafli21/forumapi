@@ -1,5 +1,6 @@
 const CreatedComment = require('../../Domains/comments/entities/CreatedComment');
 const VerifiedComment = require('../../Domains/comments/entities/VerifiedComment');
+const DeletedComment = require('../../Domains/comments/entities/DeletedComment');
 const RetrivedComment = require('../../Domains/comments/entities/RetrivedComment');
 const CommentRepository = require('../../Domains/comments/CommentRepository');
 
@@ -28,10 +29,12 @@ class CommentRepositoryPostgres extends CommentRepository {
     const { thread, comment, owner } = deleteComment;
 
     const query = {
-      text: 'UPDATE comment SET is_deleted = true WHERE id = $1 AND thread = $2 AND owner = $3',
+      text: 'UPDATE comment SET is_deleted = true WHERE id = $1 AND thread = $2 AND owner = $3  RETURNING id, is_deleted',
       values: [comment, thread, owner],
     };
-    await this._pool.query(query);
+    const result = await this._pool.query(query);
+
+    return new DeletedComment({ ...result.rows[0] });
   }
 
   async verifyCommentOwner(verifyComment) {
