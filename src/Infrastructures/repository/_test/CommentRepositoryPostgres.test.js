@@ -4,6 +4,7 @@ const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
 const CreateComment = require('../../../Domains/comments/entities/CreateComment');
 const DeleteComment = require('../../../Domains/comments/entities/DeleteComment');
 const CreatedComment = require('../../../Domains/comments/entities/CreatedComment');
+const VerifyComment = require('../../../Domains/comments/entities/VerifyComment')
 const pool = require('../../database/postgres/pool');
 const CommentRepositoryPostgres = require('../CommentRepositoryPostgres');
 
@@ -114,4 +115,27 @@ describe('CommentRepositoryPostgres', () => {
       expect(comments.is_deleted).toBeFalsy();
     });
   });
+
+
+  describe('verifyCommentOwner function', () => { 
+    it('should return verified reply if owner match with payload', async () => {
+      const fakeIdGenerator = () => '123'; // stub!
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
+
+      await CommentsTableTestHelper.addComment({
+        owner: 'user-123',
+        content: 'new comment',
+        thread: 'thread-123',
+      });
+      const comments = await CommentsTableTestHelper.findCommentdById('comment-123')
+      const verifyComment = new VerifyComment({
+        comment:comments[0].id,
+        owner:comments[0].owner,
+      })
+      // Action
+     const comment = await commentRepositoryPostgres.verifyCommentOwner(verifyComment)
+      // Assert
+      expect(comment.status).toEqual('success');
+    });
+   })
 });

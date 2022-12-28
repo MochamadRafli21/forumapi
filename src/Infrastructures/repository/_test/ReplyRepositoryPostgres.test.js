@@ -5,6 +5,7 @@ const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
 const CreateReply = require('../../../Domains/replies/entities/CreateReply');
 const DeleteReply = require('../../../Domains/replies/entities/DeleteReply');
 const CreatedReply = require('../../../Domains/replies/entities/CreatedReply');
+const VerifyReply = require('../../../Domains/replies/entities/VerifyReply')
 const pool = require('../../database/postgres/pool');
 const ReplyRepositoryPostgres = require('../ReplyRepositoryPostgres');
 
@@ -105,4 +106,26 @@ describe('ReplyRepositoryPostgres', () => {
       expect(replies2[0].is_deleted).toEqual(true);
     });
   });
+
+  describe('verifyReplyOwner function', () => { 
+    it('should return verified reply if owner match with payload', async () => {
+      const fakeIdGenerator = () => '123'; // stub!
+      const replyRepositoryPostgres = new ReplyRepositoryPostgres(pool, fakeIdGenerator);
+
+      await RepliesTableTestHelper.addReply({
+        owner: 'user-123',
+        content: 'new comment',
+        comment: 'comment-123',
+      });
+      const replies = await RepliesTableTestHelper.findReplydById('reply-123')
+      const verifyReply = new VerifyReply({
+        reply:replies[0].id,
+        owner:replies[0].owner,
+      })
+      // Action
+     const replies2 = await replyRepositoryPostgres.verifyReplyOwner(verifyReply)
+      // Assert
+      expect(replies2.status).toEqual('success');
+    });
+   })
 });
