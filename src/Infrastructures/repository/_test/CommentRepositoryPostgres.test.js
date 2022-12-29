@@ -97,8 +97,8 @@ describe('CommentRepositoryPostgres', () => {
   });
 
 
-  describe('retriveComment function', () => {
-    it('should return id of comment', async () => {
+  describe('verifyCommentAvaibility function', () => {
+    it('should return id and deleted status of comment', async () => {
 
       const fakeIdGenerator = () => '123'; // stub!
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, fakeIdGenerator);
