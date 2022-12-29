@@ -39,7 +39,7 @@ describe('const AddReplyUseCase', () => {
           id:'thread-123',
         }
       ])));
-    mockCommentRepository.getComment = jest.fn()
+    mockCommentRepository.verifyCommentAvaibility = jest.fn()
       .mockImplementation(() => Promise.resolve(new RetrivedComment(
         [{
           id:'comment-123',
@@ -57,7 +57,7 @@ describe('const AddReplyUseCase', () => {
  
     expect(createdReply).toStrictEqual(expectedCreatedReply);
     expect(mockThreadRepository.verifyThreadAvaibility).toBeCalledWith('thread-123');
-    expect(mockCommentRepository.getComment).toBeCalledWith('comment-123');
+    expect(mockCommentRepository.verifyCommentAvaibility).toBeCalledWith('comment-123');
     expect(mockReplyRepository.addReply).toBeCalledWith(new CreateReply({
       owner: useCasePayload.owner,
       thread: useCasePayload.thread,

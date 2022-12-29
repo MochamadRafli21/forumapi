@@ -109,7 +109,7 @@ describe('CommentRepositoryPostgres', () => {
         thread: 'thread-123',
       });
       // Action
-     const comments = await commentRepositoryPostgres.getComment(created_comment.id)
+     const comments = await commentRepositoryPostgres.verifyCommentAvaibility(created_comment.id)
       // Assert
       expect(comments.id).toEqual(created_comment.id);
       expect(comments.is_deleted).toBeFalsy();

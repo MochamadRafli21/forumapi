@@ -32,7 +32,7 @@ describe('DeleteReplytUseCase', () => {
     const mockThreadRepository = new ThreadRepository();
     const mockReplyRepository = new ReplyRepository();
 
-    mockCommentRepository.getComment = jest.fn()
+    mockCommentRepository.verifyCommentAvaibility = jest.fn()
       .mockImplementation(() => Promise.resolve(new RetrivedComment(
         [{
           id:'comment-123',
@@ -67,7 +67,7 @@ describe('DeleteReplytUseCase', () => {
     // check reply exist
     expect(mockThreadRepository.verifyThreadAvaibility)
         .toBeCalledWith('thread-123');
-    expect(mockCommentRepository.getComment)
+    expect(mockCommentRepository.verifyCommentAvaibility)
         .toBeCalledWith('comment-123');
     expect(mockReplyRepository.verifyReplyOwner)
         .toBeCalledWith(useCaseVerifPayload);

@@ -15,7 +15,7 @@ class AddReplyUseCase {
   async execute(useCasePayload) {
     const createReply = new CreateReply(useCasePayload);
     await this._threadRepository.verifyThreadAvaibility(createReply.thread);
-    await this._commentRepository.getComment(createReply.comment);
+    await this._commentRepository.verifyCommentAvaibility(createReply.comment);
     return this._replyRepository.addReply(createReply);
   }
 }

@@ -50,7 +50,7 @@ class CommentRepositoryPostgres extends CommentRepository {
     return new VerifiedComment(data);
   }
 
-  async getComment(idcomment){
+  async verifyCommentAvaibility(idcomment){
     const query = {
       text: 'SELECT id, is_deleted FROM comment WHERE id = $1',
       values: [idcomment],
