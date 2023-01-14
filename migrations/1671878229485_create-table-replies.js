@@ -3,7 +3,7 @@
 exports.shorthands = undefined;
 
 exports.up = pgm => {
-    pgm.createTable('reply', {
+    pgm.createTable('likes', {
         id: {
           type: 'VARCHAR(50)',
           primaryKey: true,
@@ -18,15 +18,6 @@ exports.up = pgm => {
             foreign_key:true,
             notNull: true,
         },
-        content: {
-          type: 'TEXT',
-          notNull: true,
-        },
-        is_deleted: {
-            type: 'boolean',
-            notNull: true,
-            default: false,
-        },
         date: {
             type: 'timestamp',
             notNull: true,
@@ -34,14 +25,14 @@ exports.up = pgm => {
         }
     });
 
-    pgm.addConstraint('reply', 'fk_reply.owner_users.id','FOREIGN KEY (owner) REFERENCES users(id) ON DELETE CASCADE');
-    pgm.addConstraint('reply', 'fk_reply.comment.id','FOREIGN KEY (comment) REFERENCES comment(id) ON DELETE CASCADE');
+    pgm.addConstraint('likes', 'fk_reply.owner_users.id','FOREIGN KEY (owner) REFERENCES users(id) ON DELETE CASCADE');
+    pgm.addConstraint('likes', 'fk_reply.comment.id','FOREIGN KEY (comment) REFERENCES comment(id) ON DELETE CASCADE');
 
 };
 
 exports.down = pgm => {
-    pgm.dropConstraint('reply','fk_reply.owner_users.id');
-    pgm.dropConstraint('reply','fk_reply.comment.id');
+    pgm.dropConstraint('likes','fk_likes.owner_users.id');
+    pgm.dropConstraint('likes','fk_likes.comment.id');
 
-    pgm.dropTable('reply');
+    pgm.dropTable('likes');
 };
