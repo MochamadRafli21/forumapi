@@ -19,7 +19,7 @@
             node-version: 14.x
 
         - name: Install packages
-          run: npm ci
+          run: npm install 
 
         - name: Run tests
           run: npm run test
