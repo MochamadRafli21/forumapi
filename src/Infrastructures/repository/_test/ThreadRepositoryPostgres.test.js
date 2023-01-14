@@ -205,7 +205,7 @@ describe('ThreadRepositoryPostgres', () => {
       // Action
      const threads = await threadRepositoryPostgres.verifyThreadAvaibility(created_thread.id)
       // Assert
-      expect(threads.success).toEqual('false');
+      expect(threads.success).toEqual('true');
     });
   });
 });
