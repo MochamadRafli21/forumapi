@@ -2,6 +2,37 @@
 
 exports.shorthands = undefined;
 
-exports.up = pgm => {};
+exports.up = pgm => {
+    pgm.createTable('likes', {
+        id: {
+          type: 'VARCHAR(50)',
+          primaryKey: true,
+        },
+        owner: {
+          type: 'VARCHAR(50)',
+          foreign_key:true,
+          notNull: true,
+        },
+        comment: {
+            type: 'VARCHAR(50)',
+            foreign_key:true,
+            notNull: true,
+        },
+        date: {
+            type: 'timestamp',
+            notNull: true,
+            default: pgm.func('current_timestamp'),
+        }
+    });
 
-exports.down = pgm => {};
+    pgm.addConstraint('likes', 'fk_likes.owner_users.id','FOREIGN KEY (owner) REFERENCES users(id) ON DELETE CASCADE');
+    pgm.addConstraint('likes', 'fk_likes.comment.id','FOREIGN KEY (comment) REFERENCES comment(id) ON DELETE CASCADE');
+
+};
+
+exports.down = pgm => {
+    pgm.dropConstraint('likes','fk_likes.owner_users.id');
+    pgm.dropConstraint('likes','fk_likes.comment.id');
+
+    pgm.dropTable('likes');
+};

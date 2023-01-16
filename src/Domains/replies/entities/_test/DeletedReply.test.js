@@ -1,6 +1,6 @@
 const DeletedReply = require('../DeletedReply');
 
-describe('a DeletedComment entities', () => {
+describe('a DeletedReply entities', () => {
     it('should throw error when is deleted is false', () => {
         // Arrange
         const payload = {
