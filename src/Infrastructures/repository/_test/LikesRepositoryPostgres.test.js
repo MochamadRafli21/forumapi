@@ -44,8 +44,7 @@ describe('LikeRepositoryPostgres', () => {
 
       const createLike = new addLike({
         owner: 'user-123',
-        comment: 'comment-123',
-        thread: 'thread-123'
+        comment: 'comment-123'
       });
       const fakeIdGenerator = () => '123'; // stub!
       const likeRepositoryPostgres = new LikeRepositoryPostgres(pool, fakeIdGenerator);
@@ -64,7 +63,6 @@ describe('LikeRepositoryPostgres', () => {
         owner: 'user-123',
         content: 'new comment',
         comment: 'comment-123',
-        thread: 'thread-123'
       });
       const fakeIdGenerator = () => '123'; // stub!
       const likeRepositoryPostgres = new LikeRepositoryPostgres(pool, fakeIdGenerator);
@@ -92,9 +90,7 @@ describe('LikeRepositoryPostgres', () => {
       });
       const likes = await LikesTableTestHelper.findLikedByOwnerAndComments('user-123', 'comment-123')
       const deleteLikes = new DeleteLike({
-        like:likes[0].id,
         owner:likes[0].owner,
-        thread:'thread-123',
         comment:likes[0].comment,
       })
       // Action

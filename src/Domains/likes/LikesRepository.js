@@ -7,7 +7,7 @@ class LikesRepository {
         throw new Error('LIKE_REPOSITORY.METHOD_NOT_IMPLEMENTED');
       }
     
-    async retriveLikesByOwnerAndComment(verifyLikes) {
+    async retriveLikesByOwnerAndComment(verifyLike) {
         throw new Error('LIKE_REPOSITORY.METHOD_NOT_IMPLEMENTED');
       }
   }

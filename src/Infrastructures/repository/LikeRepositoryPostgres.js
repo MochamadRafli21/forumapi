@@ -25,11 +25,11 @@ class LikeRepositoryPostgres extends LikeRepository {
   }
 
   async deleteLike(deleteLike) {
-    const { comment, like, owner } = deleteLike;
+    const { comment, owner } = deleteLike;
 
     const query = {
-      text: 'UPDATE likes SET is_deleted = true WHERE id = $1 AND comment = $2 AND owner = $3 RETURNING id, is_deleted',
-      values: [like, comment, owner],
+      text: 'UPDATE likes SET is_deleted = true WHERE comment = $1 AND owner = $2 RETURNING id, is_deleted',
+      values: [comment, owner],
     };
     const result = await this._pool.query(query);
 
