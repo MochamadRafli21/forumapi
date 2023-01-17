@@ -204,7 +204,8 @@ describe('ThreadRepositoryPostgres', () => {
           reply_date: createdReply.date,
           reply_username: 'dicoding',
           reply_is_deleted: createdReply.is_deleted,
-          like:'like-123'
+          like:'like-123',
+          like_is_deleted: false
         }
       ]));
     });

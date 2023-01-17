@@ -40,6 +40,14 @@ class RetrivedThread {
               'replies':[]
             }
           }
+          if(comments_array[i].like){
+            const like_array = payload.filter(
+              (l) => {
+                return l.comment_id === comments_array[i].comment_id && l.like_is_deleted === false
+              }
+            )
+            comment.likeCount = like_array.length
+          }
           if(comments_array[i].reply_id){
             const replies = payload.filter(
               (x) => {
@@ -65,14 +73,6 @@ class RetrivedThread {
               }
               comment.replies.push(reply)
             }
-          }
-          if(comments_array[i].like){
-            const like_array = payload.filter(
-              (l) => {
-                return l.comment_id === comment_id
-              }
-            )
-            comment.likeCount = like_array.length
           }
           this.comments.push(comment)
         };
