@@ -49,6 +49,13 @@ DomainErrorTranslator._directories = {
   'DELETED_REPLY.FAILED_TO_REMOVE_REPLY':new InvariantError('Gagal Menghapus Reply'),
   'DELETED_REPLY.NOT_CONTAIN_NEEDED_PROPERTY':new InvariantError('Gagal Menghapus reply karena data tidak lengkap'),
   'DELETED_REPLY.NOT_MEET_DATA_TYPE_SPECIFICATION':new InvariantError('Gagal Menghapus reply karena tipe data tidak sesuai'),
+  'ADDED_LIKE.NOT_CONTAIN_NEEDED_PROPERTY':new InvariantError('Gagal Menyukai Komentar karena data tidak lengkap'),
+  'ADDED_LIKE.NOT_MEET_DATA_TYPE_SPECIFICATION':new InvariantError('Gagal Menyukai Komentar karena tipe data tidak sesuai'),
+  'ADD_LIKE.NOT_CONTAIN_NEEDED_PROPERTY':new InvariantError('Gagal Menyukai Komentar karena data tidak lengkap'),
+  'DELETE_LIKE.NOT_CONTAIN_NEEDED_PROPERTY':new InvariantError('Gagal Menghapus like pada Komentar karena data tidak lengkap'),
+  'DELETED_LIKES.FAILED_TO_REMOVE_LIKES':new InvariantError('Gagal Menghapus like pada Komentar'),
+  'DELETED_LIKES.NOT_CONTAIN_NEEDED_PROPERTY':new InvariantError('Gagal Menghapus like pada Komentar data tidak lengkap'),
+  'DELETED_LIKES.NOT_MEET_DATA_TYPE_SPECIFICATION':new InvariantError('Gagal Menghapus like pada Komentar tipe data tidak sesuai'),
 };
 
 module.exports = DomainErrorTranslator;

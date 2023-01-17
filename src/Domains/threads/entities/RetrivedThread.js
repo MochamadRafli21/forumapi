@@ -27,6 +27,7 @@ class RetrivedThread {
               'content': comments_array[i].content,
               'username': comments_array[i].owner,
               'date':comments_array[i].date,
+              'likeCount':0,
               'replies':[]
             }
           }else{
@@ -35,6 +36,7 @@ class RetrivedThread {
               'content': '**komentar telah dihapus**',
               'username': comments_array[i].owner,
               'date':comments_array[i].date,
+              'likeCount':0,
               'replies':[]
             }
           }
@@ -63,6 +65,14 @@ class RetrivedThread {
               }
               comment.replies.push(reply)
             }
+          }
+          if(comments_array[i].like){
+            const like_array = payload.filter(
+              (l) => {
+                return l.comment_id === comment_id
+              }
+            )
+            comment.likeCount = like_array.length
           }
           this.comments.push(comment)
         };

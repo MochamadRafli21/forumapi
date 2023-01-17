@@ -2,6 +2,7 @@ const ThreadsTableTestHelper = require('../../../../tests/ThreadTableTestHelper'
 const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
 const CommentsTableTestHelper = require('../../../../tests/CommentsTableTestHelper');
 const RepliesTableTestHelper = require('../../../../tests/RepliesTableTestHelper');
+const LikesTableTestHelper = require('../../../../tests/LikesTableTestHelper');
 const ThreadCreate = require('../../../Domains/threads/entities/ThreadCreate');
 const CreatedThread = require('../../../Domains/threads/entities/CreatedThread');
 const RetrivedThread = require('../../../Domains/threads/entities/RetrivedThread');
@@ -13,7 +14,8 @@ describe('ThreadRepositoryPostgres', () => {
   afterEach(async () => {
     await ThreadsTableTestHelper.cleanTable();
     await CommentsTableTestHelper.cleanTable();
-    await RepliesTableTestHelper.cleanTable()
+    await RepliesTableTestHelper.cleanTable();
+    await LikesTableTestHelper.cleanTable();
   });
 
   beforeAll(async () => {
@@ -151,6 +153,58 @@ describe('ThreadRepositoryPostgres', () => {
           reply_date: createdReply.date,
           reply_username: 'dicoding',
           reply_is_deleted: createdReply.is_deleted
+        }
+      ]));
+    });
+
+
+    it('should return retrived thread with like correctly', async () => { 
+      // Arrange
+      const createdThread = await ThreadsTableTestHelper.addThread({
+        owner: 'user-123',
+        title: 'new thread',
+        body: 'is it really that hard bro?',
+      });
+      const createdComment = await CommentsTableTestHelper.addComment({
+        owner: 'user-123',
+        content: 'new comment',
+        thread: 'thread-123',
+      });
+      const createdReply = await RepliesTableTestHelper.addReply({
+        owner: 'user-123',
+        content: 'new reply',
+        comment: 'comment-123',
+      })
+
+      await LikesTableTestHelper.addLike({
+        owner:'user-123',
+        comment:'comment-123',
+      })
+
+      const fakeIdGenerator = () => '123'; // stub!
+      const threadRepositoryPostgres = new ThreadRepositoryPostgres(pool, fakeIdGenerator);
+
+      // Assert
+      const createdThreadTable = await threadRepositoryPostgres.getThread('thread-123')
+      expect(createdThreadTable).toStrictEqual(new RetrivedThread(
+      [
+        {
+          thread_id: 'thread-123',
+          thread_title: 'new thread',
+          thread_body: 'is it really that hard bro?',
+          owner: 'dicoding',
+          thread_date: createdThread.date,
+          comment_id: 'comment-123',
+          content: 'new comment',
+          thread_username: 'dicoding',
+          date: createdComment.date,
+          is_deleted: false,
+          reply_id: createdReply.id,
+          reply_content: createdReply.content,
+          reply_date: createdReply.date,
+          reply_username: 'dicoding',
+          reply_is_deleted: createdReply.is_deleted,
+          like:'like-123'
         }
       ]));
     });
