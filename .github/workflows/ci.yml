@@ -30,7 +30,7 @@ jobs:
       - name: copy secrets from env
         run: >-
           sed -i -e
-          's#$PGHOST_TEST#'"$PGHOST_TEST"'#g;s#$PGPORT_TEST#'"$PGPORT_TEST"'#g;s#PGDATABASE_TEST#'"$PGDATABASE_TEST"'#g;s#PGUSER_TEST#'"$PGUSER_TEST"'#g;s#PGPASSWORD_TEST#'"$PGPASSWORD_TEST"'#g;'
+          's#$PGHOST_TEST#'"$PGHOST_TEST"'#g;s#$PGPORT_TEST#'"$PGPORT_TEST"'#g;s#$PGDATABASE_TEST#'"$PGDATABASE_TEST"'#g;s#$PGUSER_TEST#'"$PGUSER_TEST"'#g;s#$PGPASSWORD_TEST#'"$PGPASSWORD_TEST"'#g;'
           config/database/test.json
       - name: npm install migrate and test
         run: |
