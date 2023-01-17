@@ -5,12 +5,12 @@ const VerifyLike = require('../../Domains/likes/entities/verifyLike');
 class LikesCommentUseCase {
   constructor({ 
     commentRepository,
-    likeRepository,
+    likesRepository,
     threadRepository
    }) {
     
     this._commentRepository = commentRepository;
-    this._likeRepository = likeRepository;
+    this._likeRepository = likesRepository;
     this._threadRepository = threadRepository;
   }
 

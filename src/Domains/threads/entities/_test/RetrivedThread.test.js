@@ -189,7 +189,7 @@ describe('a RetrivedThread entities', () => {
     });
 
 
-    it('should show like count if comment has count', () => {
+    it('should show like count if comment has like', () => {
       // Arrange
       const payload =  [
         {
@@ -208,7 +208,8 @@ describe('a RetrivedThread entities', () => {
           reply_date: '2022-12-12',
           reply_username: 'dicoding',
           reply_is_deleted: false,
-          like:'like-123'
+          like:'like-123',
+          like_is_deleted:false
         },
         {
           thread_id: 'thread-123',
@@ -224,9 +225,11 @@ describe('a RetrivedThread entities', () => {
           reply_id: 'reply-124',
           reply_content: 'reply content 2',
           reply_date: '2022-12-12',
-          reply_username: 'dicoding',
+          reply_username: 'jhon',
           reply_is_deleted: false,
-          like:'like-124'
+          like:'like-124',
+          like_is_deleted:false
+
         }
       ];
       // Action and Assert

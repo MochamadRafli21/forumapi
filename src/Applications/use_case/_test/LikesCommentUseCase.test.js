@@ -56,7 +56,7 @@ describe('const LikesCommentUseCase', () => {
  
     const getLikesCommentUseCase = new LikesCommentUseCase({
       commentRepository: mockCommentRepository,
-      likeRepository: mockLikeRepository,
+      likesRepository: mockLikeRepository,
       threadRepository: mockThreadRepository 
     });
  
@@ -122,7 +122,7 @@ describe('const LikesCommentUseCase', () => {
    
       const getLikesCommentUseCase = new LikesCommentUseCase({
         commentRepository: mockCommentRepository,
-        likeRepository: mockLikeRepository,
+        likesRepository: mockLikeRepository,
         threadRepository: mockThreadRepository 
       });
    
