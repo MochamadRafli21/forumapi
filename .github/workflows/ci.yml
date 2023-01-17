@@ -25,7 +25,7 @@ jobs:
       - name: insert initial file to test.json
         run: >-
           echo -e
-          '{"user":$PGUSER_TEST,"password":$PGPASSWORD_TEST,"host":$PGHOST_TEST,"port":$PGPORT_TEST,"database":$PGDATABASE_TEST
+          '{"user":"$PGUSER_TEST","password":"$PGPASSWORD_TEST","host":"$PGHOST_TEST","port":"$PGPORT_TEST","database":"$PGDATABASE_TEST"
           }' > config/database/test.json
       - name: copy secrets from env
         run: >-
