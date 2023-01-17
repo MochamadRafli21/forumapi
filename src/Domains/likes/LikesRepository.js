@@ -1,13 +1,13 @@
 class LikesRepository {
-    async addLikes(createLike) {
+    async addLike(createLike) {
       throw new Error('LIKE_REPOSITORY.METHOD_NOT_IMPLEMENTED');
     }
 
-    async deleteLikes(deleteLike) {
+    async deleteLike(deleteLike) {
         throw new Error('LIKE_REPOSITORY.METHOD_NOT_IMPLEMENTED');
       }
     
-    async verifyLikesAvailability(verifyLikes) {
+    async retriveLikesByOwnerAndComment(verifyLikes) {
         throw new Error('LIKE_REPOSITORY.METHOD_NOT_IMPLEMENTED');
       }
   }

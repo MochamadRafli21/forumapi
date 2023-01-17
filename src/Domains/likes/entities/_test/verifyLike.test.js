@@ -5,7 +5,7 @@ describe('a verifyLike entities', () => {
     it('should throw error when payload did not fill required tags', () => {
         //Arrange
         const payload = {
-            "like":"",
+            "comment":"",
             "owner":"",
         }
 
@@ -14,7 +14,7 @@ describe('a verifyLike entities', () => {
 
     it('should throw error when payload did not meet data types', () => {
         const payload = {
-            "like": 123,
+            "comment": 123,
             "owner": 123
         }
 
@@ -24,13 +24,13 @@ describe('a verifyLike entities', () => {
 
     it('should verify likes object properly', () => {
         const payload = {
-            "like": "like-123",
+            "comment": "comment-123",
             "owner": "user-123"
         }
 
-        const {like, owner} = new verifyLike(payload)
+        const {comment, owner} = new verifyLike(payload)
 
-        expect(like).toMatch(payload.like);
+        expect(comment).toMatch(payload.comment);
         expect(owner).toMatch(payload.owner);
     });
 })
