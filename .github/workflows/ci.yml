@@ -1,54 +1,57 @@
 name: Continuous Integration
-
-on:
+'on':
   pull_request:
     branches:
       - main
-
 jobs:
   test:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node-version: [14.x]
-
+        node-version:
+          - 14.x
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version}}
-    - name: create config folder
-      run: mkdir config
-    - name: create database folder
-      run: mkdir config/database
-    - name: create test.json
-      run: touch config/database/test.json
-    - name: insert initial file to test.json
-      run: echo -e '{"user": $PGUSER_TEST,"password": $PGPASSWORD_TEST,"host": $PGHOST_TEST,"port": $PGPORT_TEST,"database": $PGDATABASE_TEST }' > config/database/test.json
-    - name: copy secrets from env
-      run: sed -i -e 's#$PGHOST_TEST#'"$PGHOST_TEST"'#g;s#$PGPORT_TEST#'"$PGPORT_TEST"'#g;s#PGDATABASE_TEST#'"$PGDATABASE_TEST"'#g;s#PGUSER_TEST#'"$PGUSER_TEST"'#g;s#PGPASSWORD_TEST#'"$PGPASSWORD_TEST"'#g;' config/database/test.json
-    - name: npm install migrate and test
-      run: |
-        npm install
-        npm run migrate up
-        npm run migrate:test up
-        npm run test
-      env:
-        CI: true
-        HOST: ${{ secrets.HOST }}
-        PORT: ${{ secrets.PORT }}
-        PGHOST_TEST: ${{ secrets.PGHOST_TEST }}
-        PGUSER_TEST: ${{ secrets.PGUSER_TEST }}
-        PGDATABASE_TEST: ${{ secrets.PGDATABASE_TEST }}
-        PGPASSWORD_TEST: ${{ secrets.PGPASSWORD_TEST }}
-        PGPORT_TEST: ${{ secrets.PGPORT_TEST }}
-        PGHOST: ${{ secrets.PGHOST_TEST }}
-        PGUSER: ${{ secrets.PGUSER_TEST }}
-        PGDATABASE: ${{ secrets.PGDATABASE_TEST }}
-        PGPASSWORD: ${{ secrets.PGPASSWORD_TEST }}
-        PGPORT: ${{ secrets.PGPORT_TEST }}
-        ACCESS_TOKEN_KEY: ${{ secrets.ACCESS_TOKEN_KEY }}
-        REFRESH_TOKEN_KEY: ${{ secrets.REFRESH_TOKEN_KEY }}
-        ACCESS_TOKEN_AGE: ${{ secrets.ACCESS_TOKEN_AGE }}
+      - uses: actions/checkout@v2
+      - name: 'Use Node.js ${{ matrix.node-version }}'
+        uses: actions/setup-node@v2
+        with:
+          node-version: '${{ matrix.node-version}}'
+      - name: create config folder
+        run: mkdir config
+      - name: create database folder
+        run: mkdir config/database
+      - name: create test.json
+        run: touch config/database/test.json
+      - name: insert initial file to test.json
+        run: >-
+          echo -e
+          {"user":$PGUSER_TEST,"password":$PGPASSWORD_TEST,"host":$PGHOST_TEST,"port":$PGPORT_TEST,"database":$PGDATABASE_TEST
+          }' > config/database/test.json
+      - name: copy secrets from env
+        run: >-
+          sed -i -e
+          's#$PGHOST_TEST#'"$PGHOST_TEST"'#g;s#$PGPORT_TEST#'"$PGPORT_TEST"'#g;s#PGDATABASE_TEST#'"$PGDATABASE_TEST"'#g;s#PGUSER_TEST#'"$PGUSER_TEST"'#g;s#PGPASSWORD_TEST#'"$PGPASSWORD_TEST"'#g;'
+          config/database/test.json
+      - name: npm install migrate and test
+        run: |
+          npm install
+          npm run migrate up
+          npm run migrate:test up
+          npm run test
+        env:
+          CI: true
+          HOST: '${{ secrets.HOST }}'
+          PORT: '${{ secrets.PORT }}'
+          PGHOST_TEST: '${{ secrets.PGHOST_TEST }}'
+          PGUSER_TEST: '${{ secrets.PGUSER_TEST }}'
+          PGDATABASE_TEST: '${{ secrets.PGDATABASE_TEST }}'
+          PGPASSWORD_TEST: '${{ secrets.PGPASSWORD_TEST }}'
+          PGPORT_TEST: '${{ secrets.PGPORT_TEST }}'
+          PGHOST: '${{ secrets.PGHOST_TEST }}'
+          PGUSER: '${{ secrets.PGUSER_TEST }}'
+          PGDATABASE: '${{ secrets.PGDATABASE_TEST }}'
+          PGPASSWORD: '${{ secrets.PGPASSWORD_TEST }}'
+          PGPORT: '${{ secrets.PGPORT_TEST }}'
+          ACCESS_TOKEN_KEY: '${{ secrets.ACCESS_TOKEN_KEY }}'
+          REFRESH_TOKEN_KEY: '${{ secrets.REFRESH_TOKEN_KEY }}'
+          ACCESS_TOKEN_AGE: '${{ secrets.ACCESS_TOKEN_AGE }}'
