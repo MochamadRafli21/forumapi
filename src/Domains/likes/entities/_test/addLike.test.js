@@ -7,7 +7,6 @@ describe('a AddLike entities', () => {
         const payload = {
             "owner":"",
             "comment":"",
-            "thread":""
         }
 
         expect(() => new AddLike(payload)).toThrowError('ADD_LIKE.NOT_CONTAIN_NEEDED_PROPERTY');
@@ -17,12 +16,10 @@ describe('a AddLike entities', () => {
         const payload = {
             "owner":"user-123",
             "comment":"comment-123",
-            "thread": "thread-123 ",
         }
 
-        const {thread,comment, owner} = new AddLike(payload)
+        const {comment, owner} = new AddLike(payload)
 
-        expect(thread).toMatch(payload.thread);
         expect(comment).toMatch(payload.comment);
         expect(owner).toMatch(payload.owner);
     });

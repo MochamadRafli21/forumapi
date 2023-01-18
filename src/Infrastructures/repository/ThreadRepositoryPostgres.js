@@ -26,7 +26,7 @@ class ThreadRepositoryPostgres extends ThreadRepository {
 
   async getThread(thread_id) {
     const query = {
-      text: 'SELECT thread.id as thread_id, thread.title as thread_title , thread.body as thread_body, i.username as owner, thread.date as thread_date, comment.id as comment_id, comment.content, s.username as thread_username, comment.date, comment.is_deleted , reply.id as reply_id, reply.content as reply_content, reply.date as reply_date , x.username as reply_username, reply.is_deleted as reply_is_deleted FROM thread LEFT JOIN comment ON thread.id = comment.thread LEFT JOIN reply ON comment.id = reply.comment LEFT JOIN users as s ON thread.owner = s.id LEFT JOIN users as i ON comment.owner = i.id LEFT JOIN users as x ON x.id = reply.owner WHERE thread.id = $1 ORDER BY comment.date ASC, reply.date ASC',
+      text: 'SELECT thread.id as thread_id, thread.title as thread_title , thread.body as thread_body, i.username as owner, thread.date as thread_date, comment.id as comment_id, comment.content, s.username as thread_username, comment.date, comment.is_deleted , reply.id as reply_id, reply.content as reply_content, reply.date as reply_date , x.username as reply_username, reply.is_deleted as reply_is_deleted, likes.id as like, likes.is_deleted as like_is_deleted FROM thread LEFT JOIN comment ON thread.id = comment.thread LEFT JOIN reply ON comment.id = reply.comment LEFT JOIN users as s ON thread.owner = s.id LEFT JOIN users as i ON comment.owner = i.id LEFT JOIN users as x ON x.id = reply.owner LEFT JOIN likes ON comment.id = likes.comment WHERE thread.id = $1 ORDER BY comment.date ASC, reply.date ASC',
       values: [thread_id],
     };
 

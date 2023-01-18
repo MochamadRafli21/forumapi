@@ -16,6 +16,7 @@ describe('a AddedLike entities', () => {
     const payload = {
       id: 123,
       owner:123,
+      comment:123
     };
 
     // Action and Assert
@@ -27,6 +28,7 @@ describe('a AddedLike entities', () => {
     const payload = {
       id: 'thread-123',
       owner: 'user-123',
+      comment:'comment-123',
     };
 
     // Action
@@ -34,6 +36,7 @@ describe('a AddedLike entities', () => {
 
     // Assert
     expect(created_like.id).toEqual(payload.id);
+    expect(created_like.comment).toEqual(payload.comment);
     expect(created_like.owner).toEqual(payload.owner);
   });
 });

@@ -3,9 +3,10 @@ class AddedLike {
 
       this._verifyPayload(payload);
   
-      const { id, owner } = payload;
+      const { id,comment, owner } = payload;
   
       this.id = id;
+      this.comment = comment
       this.owner = owner;
     }
   

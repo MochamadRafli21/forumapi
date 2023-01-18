@@ -187,4 +187,69 @@ describe('a RetrivedThread entities', () => {
         expect(comments[0].replies[0].username).toMatch(payload[0].reply_username);
         expect(comments[0].replies[0].id).toMatch(payload[0].reply_id);
     });
+
+
+    it('should show like count if comment has like', () => {
+      // Arrange
+      const payload =  [
+        {
+          thread_id: 'thread-123',
+          thread_title: 'new thread',
+          thread_body: 'is it really that hard bro?',
+          owner: 'dicoding',
+          thread_date: '2022-12-12',
+          comment_id: 'comment-123',
+          content: 'new comment',
+          thread_username: 'dicoding',
+          date: '2022-12-12',
+          is_deleted: false,
+          reply_id: 'datetime',
+          reply_content: 'reply content',
+          reply_date: '2022-12-12',
+          reply_username: 'dicoding',
+          reply_is_deleted: false,
+          like:'like-123',
+          like_is_deleted:false
+        },
+        {
+          thread_id: 'thread-123',
+          thread_title: 'new thread',
+          thread_body: 'is it really that hard bro?',
+          owner: 'dicoding',
+          thread_date: '2022-12-12',
+          comment_id: 'comment-123',
+          content: 'new comment',
+          thread_username: 'dicoding',
+          date: '2022-12-12',
+          is_deleted: false,
+          reply_id: 'reply-124',
+          reply_content: 'reply content 2',
+          reply_date: '2022-12-12',
+          reply_username: 'jhon',
+          reply_is_deleted: false,
+          like:'like-124',
+          like_is_deleted:false
+
+        }
+      ];
+      // Action and Assert
+      const {id, title, body, username ,date ,comments} = new RetrivedThread(payload)
+
+      expect(id).toMatch(payload[0].thread_id);
+      expect(title).toMatch(payload[0].thread_title);
+      expect(body).toMatch(payload[0].thread_body);
+      expect(username).toMatch(payload[0].thread_username);
+      expect(date).toMatch(payload[0].thread_date);
+      expect(comments).toHaveLength(1);
+      expect(comments[0].replies).toHaveLength(2);
+      expect(comments[0].likeCount).toEqual(2);
+      expect(comments[0].replies[0].content).toMatch(payload[0].reply_content);
+      expect(comments[0].replies[0].date).toMatch(payload[0].reply_date);
+      expect(comments[0].replies[0].username).toMatch(payload[0].reply_username);
+      expect(comments[0].replies[0].id).toMatch(payload[0].reply_id);
+      expect(comments[0].replies[1].content).toMatch(payload[1].reply_content);
+      expect(comments[0].replies[1].date).toMatch(payload[1].reply_date);
+      expect(comments[0].replies[1].username).toMatch(payload[1].reply_username);
+      expect(comments[0].replies[1].id).toMatch(payload[1].reply_id);
+  });
 })
